@@ -1,0 +1,88 @@
+1.  What is the main difference between a stack and a queue?
+
+- Stacks are last in first out (LIFO) while queues are first in first out (FIFO).
+
+2.  What are the similarities between stacks and queues?
+
+- They are both data structures and each has insertion/deletion methods.
+
+3.  Imagine you are an engineer tasked with implementing the UNDO and REDO options
+in a word processor such as Microsoft Word. Which data structure would you use
+for each option and why?
+
+- I've typed in 1, 2, 3, 4.  I hit undo twice and 4 erases then 3, meaning undo
+would be the last thing typed the first thing erased (LIFO).  I now am left with
+1, 2.  I hit redo and 3 is added back.  3 was the last deletion added but the
+first to be redone meaning it is also (LIFO).
+
+Programming Questions
+
+You may program the following question in any language of your choice. Before
+you begin coding, write out a plan as to how you will solve the question.
+
+1.  Given a string, reverse it using a stack. For example, the string "Bloc!" should
+be converted to "!colB".
+
+let x = "Cube!";
+
+function revWordOne (wordOne){
+  let y = wordOne.split('');
+  let revArrOne = [];
+  for (i=y.length-1; i>=0; i--){
+    revArrOne.push(y[i]);
+  }
+  return revArrOne.join('');
+}
+
+console.log(revWordOne(x));
+
+2.  Implement the pop method of a stack using one queue. Make a FIFO data structure
+mirror the functionality of a LIFO data structure. Since the internal list is
+not the same as defined in the checkpoint, it may help to rewrite the pseudocode
+first.
+
+let a = "Bloc!";
+
+function revWord (word){
+  let b = word.split('');
+  let stackArr = [];
+  let revArr = [];
+  for (i=0; i<b.length; i++){
+    stackArr.push(b[i]);
+  }
+  while (stackArr !== null){
+    revArr.push(stackArr.pop());
+  }
+  return revArr.join('');
+}
+
+console.log(revWord(a));
+
+To delete an item, take all of the elements in the queue one at a time and put
+them at the end of the queue, except for the last one which should be removed
+and returned.
+
+3.  Implement the enqueue and dequeue methods defined in the checkpoint inside
+your own Queue class.
+
+class Queue {
+  constructor(line) {
+  this.line = line;
+  }
+
+  enqueue(element){
+  this.line.push(element);
+  console.log(this.line);
+  }
+
+  dequeue(){
+  console.log(this.line.shift());
+  }
+}
+
+let appleLine = new Queue(["Joe", "Mary", "Bob"]);
+appleLine.enqueue("Ann");
+let samsungLine = new Queue(["Angie", "David", "Dick"]);
+samsungLine.dequeue();
+
+// test change 4
