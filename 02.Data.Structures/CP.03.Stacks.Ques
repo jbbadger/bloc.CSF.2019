@@ -50,7 +50,7 @@ function revWord (word){
   for (i=0; i<b.length; i++){
     stackArr.push(b[i]);
   }
-  while (stackArr !== null){
+  while (stackArr.length !== 0){
     revArr.push(stackArr.pop());
   }
   return revArr.join('');
