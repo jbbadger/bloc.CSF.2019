@@ -1,0 +1,112 @@
+What is a hash table?
+A hash table is a type of data structure that stores each value by linking it to a key.
+Hash tables store the key-value pairs by placing them at a particular location in an array
+maintained internally in the hash table. Each key must be unique. A value can be retrieved by
+looking up its distinct key.
+
+What is hashing?
+The process of converting string keys into numerical indices. This is done by converting the key
+to a fixed-length number. The hash code is used as a key and figures out
+where to place the key-value pair in its internal array.
+
+How does a hash table store data?
+It takes a key, then converts it into a hash code utilizing the hashing function.  It modifies
+the hash code to retrieve an array index.  Lastly, the table stores the value in the retrieved
+array index.
+
+How are hash tables and objects different?
+Hash tables store data as key-value pairs at a particular location in an array maintained internally
+in the hash table while objects are standalone entities that contain properties or keys and values.
+Also objects are predefined and static whereas hash tables are open-ended.
+
+Determine whether you would use a hash table or an object to store each of the following pieces of data:
+A list of pets and their unique names.
+Hash table
+The name, age, and the birthday of your best friend.
+Object
+The name and location of every company in a given city.
+Hash table
+All of the books checked out from a library by a particular individual.
+Object
+The primary and secondary phone numbers for a contact.
+Object
+
+Build a system that allows a sales associate to enter a customer's name, address, and phone number into the
+system and look up customers using their phone numbers. Store this information in a hash table.
+var hash = function(str, max) {
+  var hash = 0;
+  for(var i = 0; i < str.length; i++) {
+    hash += str.charCodeAt(i);
+  }
+  // max represents the # of "buckets" or storage containers.
+  return hash % max;
+};
+
+//given inputs create hash key, save key value pair into data structure (will call hash function)
+//given a key returns to object
+
+let hashTable = function (){
+  let storage = [];
+  const storeLimit = 11;
+
+this.printStorage = function(){
+  return storage;
+}
+
+this.addKeyValue = function(key, value){
+  //implement hash function to establish index
+  let index = hash(key, storeLimit);
+  //if there is nothing in storage
+  if(storage[index] === undefined || NaN){
+    storage[index] = [[key, value]];
+  }
+  else {
+    var inserted = false;
+    for(i=0; i<storage[index].length; i++){
+      if(storage[index][i][0] === key){
+        storage[index][i][1] = value;
+        console.log(storage[index][i][1]);
+        inserted = true;
+      }
+    }
+    if(inserted === false){
+      console.log(storage[index]);
+      storage[index].push([key, value]);
+    }
+  }
+};
+
+this.lookupValue = function(key){
+  index = hash(key, storeLimit);
+  if(storage[index] === undefined){
+    return "No value exists";
+  } else{
+    for (i=0; i<storage[index].length; i++) {
+      if(storage[index][i][0] === key) {
+        return storage[index][i][1];
+    } else {
+      return "No match found";
+      }
+    }
+  }
+};
+
+}
+
+let sales = new hashTable();
+sales.addKeyValue('244-544-8865', {Name: "Kyle Rush",
+Address: "123 Oak St"});
+console.log(sales.lookupValue('244-544-8865'));
+
+Build a system that allows a store owner to track their store's inventory using a hash table for storage.
+let stock = new hashTable();
+stock.addKeyValue('Dental', [{Type: 'Floss', Number: 23}, {Type: 'Brush', Number: 6}]);
+stock.addKeyValue('Snack', [{Type: 'Chips', Number: 16}, {Type: 'Cookies', Number: 2}]);
+console.log(stock.lookupValue('Dental'));
+console.log(stock.lookupValue("Snack"));
+
+Build a system that allows digital copies of newspapers to be entered and searched by publisher and publication date. Use hash tables to store the necessary data.
+let publication = new hashTable();
+publication.addKeyValue('Wall St. Journal, 1983', {Digital: true, Title: "Annual Tax Guide", Publisher: "WSJ", Date: "1983"});
+publication.addKeyValue('New York Times, 1988', {Digital: true, Title: "Best of 1988", Publisher: "NYT", Date: "1988"});
+console.log(publication.lookupValue('Wall St. Journal, 1983'))
